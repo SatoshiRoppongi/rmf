@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {line-height:12pt; background-color: orange; color: black; overflow-wrap: break-all;}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Recurse Me First! (RMF) Gen: <span id="gen">0</span></h2>
+      <iframe id="iframe"  width="100%" height="100%" src="/content/b1aed968aec70b1ec19d8a8857828e2aad32122440a48db26f35223d4c0abb42i0"></iframe>
+      <div id="input-layer-container" class="container">
+        <input type="text" id="inscriptionId" placeholder="Inscription ID">
+      </div>
+      <button onclick="generateHTML()">Generate next HTML</button>
+      <pre id="html"></pre>
+    </div>
+    <script>
+      function generateHTML() {
+        let nextHtmlStr = '<!DOCTYPE html>' + document.getElementsByTagName('html')[0].outerHTML;
+        const inscriptionId = document.getElementById('inscriptionId').value;
+        const gen = Number(document.getElementById('gen').textContent) + 1;
+        nextHtmlStr = nextHtmlStr.replace(/<span id="gen">.*<\/span>/g, `<span id="gen">${gen}<\/span>`);
+        nextHtmlStr = nextHtmlStr.replace(/\/content\/.*"/g, `\/content\/${inscriptionId}"`);
+        console.log(nextHtmlStr)
+        let html = document.getElementById('html'); 
+        html.textContent = nextHtmlStr 
+      }
+     </script>
+  </body>
+</html>
